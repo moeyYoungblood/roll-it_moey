@@ -57,7 +57,7 @@ def initial_points(which_player):
         double = "yes"
 
     total = roll_one + roll_two
-
+    print(f"{which_player} - roll 1: {roll_one} \t| roll 2: {roll_two} \t | total: {total}")
     return total, double
 
 
@@ -144,7 +144,7 @@ while comp_score < game_goal and user_score < game_goal:
         print(f"{second}: rolled a {player_1_roll} - has {player_1_points} points")
 
         #    if the first persons score is over 13, end the round
-        if player_1_points < 13:
+        if player_1_points > 13:
             break
 
         #    second person rolls the die (score is updated)
@@ -188,7 +188,7 @@ while comp_score < game_goal and user_score < game_goal:
     print()
 
     # Outside rounds loop - Update score with round points, only add points to the score of the
-    comp_score += user_points
+    comp_score += comp_points
     user_score += user_points
 
     # generate round results and add it to the game history list

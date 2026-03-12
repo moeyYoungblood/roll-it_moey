@@ -277,4 +277,12 @@ if rounds_played > 0:
     see_history = string_checker("Do you want to see the history? ")
     if see_history == "yes":
         for count, item in enumerate(game_history, start=1):
-            print(f"Round {count}: {item}")
+            if item <= 2:
+                print(f"Round {count}: it took you {item} try to get it right!")
+
+            else:
+                print(f"round {count}: it took you {item} trys to get it right!")
+
+# if the user have to quit without playing a round, end the program gracefully
+else:
+    print("🐓🐓🐓 OOPS - NOOOOO!!!!! DONT LEAVE PLEASEEEEEE!!!! 🐓🐓🐓")

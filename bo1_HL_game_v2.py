@@ -127,12 +127,12 @@ if want_instructions == "yes":
     instructions()
 
 # Ask user for number of rounds / infinite mode
-num_rounds = int_check("Push <enter> for infinite mode: ",
-                       low=1, exit_code="")
+num_rounds = int_check("Push <enter> for infinite mode: "
+                             ,low=1, exit_code="")
 
-if num_rounds == "infinite":
+if num_rounds == "":
     mode = "infinite"
-    num_rounds = 5
+    num_rounds = 6
 
 # get game parameters
 default_params = yes_no("Do you want to use the default game parameters? ")
@@ -153,7 +153,6 @@ while rounds_played < num_rounds:
     # Rounds headings (based on mode)
 
     if mode == "infinite":
-
         rounds_heading = f"\n♾♾♾ Round {rounds_played + 1} (Infinite Mode) ♾♾♾"
     else:
         rounds_heading = f"\n💿💿💿 Round {rounds_played + 1} of {num_rounds} 💿💿💿"
@@ -238,17 +237,18 @@ while rounds_played < num_rounds:
 
     # add round result to game history
 
+    # If user choice is the exit code, break the loop
+    rounds_played += 1
+    game_history.append(guesses_used)
+
     user_choice = input("press <enter> to continue or type xxx to quit: ")
 
-    # If user choice is the exit code, break the loop
     if user_choice == "xxx":
         break
 
-    rounds_played += 1
 
     # Add round result to game history
     history_feedback = f"Round {rounds_played}: {feedback}"
-    game_history.append(guesses_used)
 
     # add guesses used to score list
     all_scores.append(guesses_used)
@@ -273,16 +273,33 @@ if rounds_played > 0:
     print(f"Best:{best_score} | Worst:{worst_score} | Average:{average_score:.2f}")
     print()
 
-    #display the game history on request
-    see_history = string_checker("Do you want to see the history? ")
+    # #display the game history on request
+    # see_history = string_checker("Do you want to see the history? ")
+    # if see_history == "yes":
+    #     for count, item in enumerate(game_history, start=1):
+    #         if item <= 2:
+    #             print(f"Round {count}: it took you {item} try to get it right!")
+    #
+    #         else:
+    #             print(f"round {count}: it took you {item} trys to get it right!")
+    #
+    #         else:
+    #             if worst_score >= 5:
+    #                 feedback = f"round:{count}: you lost this round without any guesses."
+    see_history = string_checker("Do you want the game history?")
     if see_history == "yes":
         for count, item in enumerate(game_history, start=1):
-            if item <= 2:
-                print(f"Round {count}: it took you {item} try to get it right!")
 
+            if item == 5:
+                print(f"Round {count}: You didnt get the number in time")
+
+            elif item <= 1:
+                print(f"Round {count}: it took you {item} try to get it right!")
             else:
-                print(f"round {count}: it took you {item} trys to get it right!")
+                print(f"Round {count}: it took you {item} tries to get it right!")
 
 # if the user have to quit without playing a round, end the program gracefully
 else:
     print("🐓🐓🐓 OOPS - NOOOOO!!!!! DONT LEAVE PLEASEEEEEE!!!! 🐓🐓🐓")
+
+    # print(f"{count}: you didnt get it in {item} trys!")
